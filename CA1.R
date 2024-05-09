@@ -14,6 +14,10 @@ summary(studentdata$No_visual_aids)
 
 # Summary statistics for quality scores with visual aids
 summary(studentdata$With_visual_aids)
+# Boxplot to compare quality scores with and without visual aids
+windows(20,16)
+boxplot(studentdata[,2:3], main="Quality Scores with and without Visual Aids", 
+        xlab="Visual Aids", ylab="Quality Score", names=c("Without Aids", "With Aids"))
 #normality test
 shapiro.test(studentdata$No_visual_aids)
 shapiro.test(studentdata$With_visual_aids)
@@ -22,17 +26,23 @@ windows(20,16)
 par(mfrow = c(1, 2))
 qqnorm(studentdata$No_visual_aids)
 qqline(studentdata$No_visual_aids, col = "red")
-title("Q-Q Plot for No_visual_aids")
+#title("Q-Q Plot for No_visual_aids")
 
 # Q-Q plot for With_visual_aids
 qqnorm(studentdata$With_visual_aids)
 qqline(studentdata$With_visual_aids, col = "blue")
-title("Q-Q Plot for With_visual_aids")
+#title("Q-Q Plot for With_visual_aids")
+# Set up the layout for side-by-side histograms
+windows(20.16)
+par(mfrow=c(1,2))
 
-# Boxplot to compare quality scores with and without visual aids
-windows(20,16)
-boxplot(studentdata[,2:3], main="Quality Scores with and without Visual Aids", 
-        xlab="Visual Aids", ylab="Quality Score", names=c("Without Aids", "With Aids"))
+# Histogram for No_visual_aids
+hist(studentdata$No_visual_aids, main="Histogram for No_visual_aids", xlab="Score", ylab="Frequency", col="red", border="white")
+
+# Histogram for With_visual_aids
+hist(studentdata$With_visual_aids, main="Histogram for With_visual_aids", xlab="Score", ylab="Frequency", col="green", border="white")
+
+
 # Paired t-test
 t_test <- t.test(studentdata$No_visual_aids, studentdata$With_visual_aids, paired=TRUE)
 t_test
